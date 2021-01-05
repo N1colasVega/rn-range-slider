@@ -21,6 +21,7 @@ const Slider = (
     disableRange,
     disabled,
     onValueChanged,
+    onRelease,
     renderThumb,
     renderLabel,
     renderNotch,
@@ -166,6 +167,10 @@ const Slider = (
 
     onPanResponderRelease: () => {
       setPressed(false);
+      if (onRelease) {
+        const { low, high, min, max } = inPropsRef.current;
+        onRelease(low, high, min, max);
+      }
     },
   }), [pointerX, inPropsRef, thumbWidth, disableRange, disabled, onValueChanged, setLow, setHigh, labelUpdate, notchUpdate, updateSelectedRail]);
 
